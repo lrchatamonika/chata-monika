@@ -93,38 +93,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- 4. LIGHTBOX (OPRAVENÝ PRE LIGHTHOUSE) ---
-    const lightbox = document.createElement('div');
-    lightbox.className = 'lightbox';
-    lightbox.setAttribute('role', 'dialog');
-    lightbox.setAttribute('aria-modal', 'true');
+	const lightbox = document.createElement('div');
+	lightbox.className = 'lightbox';
+	lightbox.setAttribute('role', 'dialog');
+	lightbox.setAttribute('aria-modal', 'true');
+	lightbox.setAttribute('aria-label', 'Galéria fotografií'); // <--- DOPLNENÉ
 
-    const lightboxImg = document.createElement('img');
-    lightboxImg.alt = "Zväčšený náhľad galérie";
+	const lightboxImg = document.createElement('img');
+	// Tip: alt nastavuj dynamicky v showImage() podľa altu pôvodnej fotky
+	lightboxImg.alt = "Zväčšený náhľad galérie"; 
 
-    // Zmena zo span na button + pridanie aria-label
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'close-lightbox';
-    closeBtn.setAttribute('aria-label', 'Zatvoriť galériu');
-    closeBtn.innerHTML = '&times;';
+	const closeBtn = document.createElement('button');
+	closeBtn.className = 'close-lightbox';
+	closeBtn.setAttribute('aria-label', 'Zatvoriť galériu');
+	closeBtn.innerHTML = '&times;';
 
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'lightbox-prev';
-    prevBtn.setAttribute('aria-label', 'Predchádzajúci obrázok');
-    prevBtn.innerHTML = '<i class="fas fa-chevron-left" aria-hidden="true"></i>';
+	const prevBtn = document.createElement('button');
+	prevBtn.className = 'lightbox-prev';
+	prevBtn.setAttribute('aria-label', 'Predchádzajúci obrázok');
+	prevBtn.innerHTML = '<i class="fas fa-chevron-left" aria-hidden="true"></i>';
 
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'lightbox-next';
-    nextBtn.setAttribute('aria-label', 'Nasledujúci obrázok');
-    nextBtn.innerHTML = '<i class="fas fa-chevron-right" aria-hidden="true"></i>';
-
-    lightbox.appendChild(closeBtn);
-    lightbox.appendChild(prevBtn);
-    lightbox.appendChild(lightboxImg);
-    lightbox.appendChild(nextBtn);
-    document.body.appendChild(lightbox);
-
-    let currentImages = [];
-    let currentIndex = 0;
+	const nextBtn = document.createElement('button');
+	nextBtn.className = 'lightbox-next';
+	nextBtn.setAttribute('aria-label', 'Nasledujúci obrázok');
+	nextBtn.innerHTML = '<i class="fas fa-chevron-right" aria-hidden="true"></i>';
 
     // OPEN
     document.addEventListener('click', (e) => {
