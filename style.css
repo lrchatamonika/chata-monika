@@ -737,7 +737,7 @@ main.main-layout.additional-page {
     max-width: 100% !important; 
     margin: 0 !important;
     /* BEZPECNA MEDZERA PRE MENU (zabrani skrytiu textu pod navigaciu) */
-    padding-top: 120px !important; 
+    padding-top: 130px !important; 
     float: none !important;
 }
 
