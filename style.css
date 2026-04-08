@@ -26,18 +26,17 @@ body {
     color: var(--dark);
     background-color: var(--white);
     overflow-x: hidden;
-    padding-top: 110px; /* Kompenzacia pre fixny topbar a nav */
+    padding-top: 110px; /* Desktop: 40px topbar + 70px nav */
 }
 
 section[id] { scroll-margin-top: 100px; }
-
 
 /* --- TOPBAR --- */
 .topbar {
     background: var(--primary);
     color: var(--white);
     font-size: 0.85rem;
-    padding: 5px 5%;
+    padding: 0 5%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -45,7 +44,7 @@ section[id] { scroll-margin-top: 100px; }
     width: 100%;
     top: 0;
     z-index: 1001;
-    min-height: 40px; /* Zmena z height na min-height pre mobily */
+    height: 40px; 
 }
 
 .topbar-content {
@@ -69,9 +68,10 @@ nav {
     align-items: center;
     position: fixed;
     width: 100%;
-    top: 40px; /* Toto moze byt problem, ak je topbar na mobile vyssi */
+    top: 40px; 
     z-index: 1000;
     box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    transition: var(--transition);
 }
 
 nav::after {
@@ -94,20 +94,17 @@ nav::after {
     align-items: center;
 }
 
-/* --- LOGO --- */
 .logo { font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
 .logo a { text-decoration: none; color: var(--primary); display: block; transition: var(--transition); }
 .logo a span { font-weight: 300; color: var(--accent); margin-left: 2px; }
 
-/* --- MENU TOGGLE (HAMBURGER) --- */
 .menu-toggle {
-    display: none; /* Skryté na desktope */
+    display: none;
     cursor: pointer;
     font-size: 1.5rem;
     color: var(--primary);
 }
 
-/* --- NAV LINKS --- */
 .nav-links { display: flex; align-items: center; }
 .nav-links a { text-decoration: none; color: var(--dark); margin-left: 25px; font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
 .nav-links a:hover { color: var(--primary); }
@@ -115,28 +112,35 @@ nav::after {
 
 /* --- MOBILNÁ RESPONSIVITA --- */
 @media (max-width: 768px) {
-    /* Oprava topbaru pre mobil */
+    body {
+        padding-top: 110px; /* Mobil: 50px topbar + 60px nav */
+    }
+
     .topbar {
         justify-content: center;
-        padding: 10px 5%;
+        padding: 5px 5%;
+        height: auto; 
+        min-height: 50px; /* Uzsi topbar */
     }
 
     .topbar-content {
-        flex-direction: column; /* Spany pod seba */
+        flex-direction: column;
         text-align: center;
-        gap: 5px;
+        gap: 2px; /* Mensia medzera medzi riadkami adresy a tel. */
     }
 
     .topbar-content span {
-        margin-left: 0; /* Odstranenie bocneho odsadzania */
-        font-size: 0.75rem;
+        margin-left: 0;
+        font-size: 0.7rem; /* Mensie pismo pre mobily */
     }
 
-    /* Navigacia musi ist nizsie, ak je topbar dvojriadkovy */
     nav {
-        top: auto; 
-        position: sticky; /* Sticky je na mobiloch stabilnejsie pri premenlivej vyske */
+        height: 60px; /* Uzsi navbar */
+        top: 50px; /* Presne licuje s min-height topbaru, odstranuje medzeru */
+        position: fixed;
     }
+
+    .logo { font-size: 1.3rem; }
 
     .menu-toggle { display: block; }
     
@@ -144,11 +148,11 @@ nav::after {
         display: none;
         flex-direction: column;
         position: absolute;
-        top: 70px;
+        top: 60px; /* Otvara sa hned pod uzsim navbarom */
         left: 0;
         width: 100%;
         background: white;
-        padding: 20px 0;
+        padding: 15px 0;
         box-shadow: 0 10px 10px rgba(0,0,0,0.1);
         text-align: center;
     }
@@ -156,12 +160,11 @@ nav::after {
     .nav-links.active { display: flex; }
 
     .nav-links a {
-        margin: 15px 0;
-        font-size: 1.2rem;
+        margin: 10px 0;
+        font-size: 1.1rem;
         display: block;
     }
 }
-
 /* --- HERO SEKCIÁ --- */
 header {
     height: 100vh;
