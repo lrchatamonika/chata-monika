@@ -243,9 +243,12 @@ async function initReviewSidebar() {
                 starHtml += '<i class="fas fa-star" aria-hidden="true"></i>';
             }
 
+            // OPRAVA: Pridana role="img", aby aria-label na div-e bol povoleny
             card.innerHTML = `
                 <i class="fas fa-quote-left quote-icon" aria-hidden="true"></i>
-                <div class="stars" aria-label="Hodnotenie ${stars} z 5 hviezdiciek">${starHtml}</div>
+                <div class="stars" role="img" aria-label="Hodnotenie ${stars} z 5 hviezdiciek">
+                    ${starHtml}
+                </div>
                 <p>${text.trim()}</p>
                 <h4>${name.trim()}</h4>
                 <span class="platform-tag">${platform ? platform.trim() : 'Recenzia'}</span>
@@ -266,6 +269,6 @@ async function initReviewSidebar() {
 
     } catch (err) {
         console.error(err);
-        container.innerHTML = '<p style="padding:20px">Zatiaľ žiadne recenzie.</p>';
+        container.innerHTML = '<p style="padding:20px">Zatila ziadne recenzie.</p>';
     }
 }
