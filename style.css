@@ -167,50 +167,86 @@ header {
 .price-item { background: var(--white); padding: 40px; border-radius: 25px; text-align: center; box-shadow: var(--shadow); }
 
 /* --- KONTAKT A MAPA --- */
-.contact-section { margin-top: 80px; }
-.contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-.contact-item { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; font-size: 1.2rem; }
-.contact-item i { font-size: 1.5rem; color: var(--primary); width: 30px; }
-.map-container { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); height: 400px; }
-
-/* --- SOCIÁLNE SIETE (Zjednotené a čisté) --- */
-.contact-socials { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
-.contact-socials a { display: flex; align-items: center; gap: 15px; text-decoration: none !important; color: var(--dark) !important; font-weight: 500; padding: 12px 20px; border-radius: 12px; transition: var(--transition); border: 1px solid rgba(0, 0, 0, 0.05); }
-
-/* Hover efekt */
-.contact-socials a:hover {
-    background: var(--light);
-    border-color: var(--primary);
-    color: var(--primary) !important; /* Text sa pri hoveri zafarbí na primárnu */
-    transform: translateX(5px);
+.contact-section { 
+    margin-top: 80px; 
 }
 
-/* Ikony v odkazoch */
-.contact-socials a i {
-    font-size: 1.5rem;
+.contact-wrapper { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 40px; 
+    align-items: center; 
+}
+
+/* Zjednotený štýl pre všetky kontaktné tlačidlá (Adresa, Tel, Mail, FB) */
+.contact-item { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-bottom: 15px; 
+    font-size: 1.1rem; 
+    color: var(--dark);
+    text-decoration: none;
+    padding: 12px 20px; 
+    border-radius: 12px; 
+    transition: var(--transition); 
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+    background: transparent;
+}
+
+/* Spoločný hover a focus efekt */
+.contact-item:hover,
+.contact-item:focus {
+    background: var(--light);
+    border-color: var(--primary);
     color: var(--primary);
-    width: 30px;
+    transform: translateX(5px);
+    outline: none;
+}
+
+.contact-item i { 
+    font-size: 1.5rem; 
+    color: var(--primary); 
+    width: 30px; 
     text-align: center;
     transition: var(--transition);
 }
 
+.map-container { 
+    border-radius: 20px; 
+    overflow: hidden; 
+    box-shadow: var(--shadow); 
+    height: 400px; 
+    border: 0;
+}
+
 /* --- AKTIVITY --- */
-.activities { background: #f0f4f0; padding: 40px; border-left: 6px solid var(--primary); border-radius: 15px; margin: 40px 0; }
+.activities { 
+    background: #f0f4f0; 
+    padding: 40px; 
+    border-left: 6px solid var(--primary); 
+    border-radius: 15px; 
+    margin: 40px 0; 
+}
 
 /* --- FOOTER --- */
-footer { padding: 40px 5%; background: var(--dark); color: rgba(255,255,255,0.6); text-align: center; }
+footer { 
+    padding: 60px 5% 40px; 
+    background: var(--dark); 
+    color: rgba(255, 255, 255, 0.8); 
+    text-align: center; 
+}
 
 /* --- RESPONSIVITA --- */
 @media (max-width: 1100px) {
     .main-layout { grid-template-columns: 1fr; }
     .sidebar-sticky { position: static; order: 2; }
-    .slideshow-container { aspect-ratio: 16 / 9; }
 }
 
 @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .contact-wrapper { grid-template-columns: 1fr; }
-    .bg-light { padding: 40px 20px; }
+    .contact-wrapper { grid-template-columns: 1fr; gap: 30px; }
+    .map-container { height: 300px; }
 }
 
 /* --- GALERIA A SLIDERY --- */
