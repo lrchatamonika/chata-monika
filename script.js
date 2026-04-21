@@ -8,37 +8,33 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'okolie', count: 1, alt: 'Okolie' }
     ];
 
-
     // --- 1. RENDER FOTIEK ---
     config.forEach(item => {
         const track = document.querySelector(`.slider-track[data-id="${item.id}"]`);
+        if (!track || item.count <= 0) return;
 
-        if (track && item.count > 0) {
-            const fragment = document.createDocumentFragment();
+        const fragment = document.createDocumentFragment();
 
-            for (let i = 1; i <= item.count; i++) {
-                const slide = document.createElement('div');
-                slide.className = 'slide';
+        for (let i = 1; i <= item.count; i++) {
+            const slide = document.createElement('div');
+            slide.className = 'slide';
 
-                const img = document.createElement('img');
-                img.src = `img/${item.id}-${i}.webp`;
-                img.alt = `${item.alt} ${i}`;
-                img.loading = 'lazy'; // Super pre Performance
+            const img = document.createElement('img');
+            img.src = `img/${item.id}-${i}.webp`;
+            img.alt = `${item.alt} ${i}`;
+            img.loading = 'lazy';
 
-                img.onerror = () => slide.style.display = 'none';
+            img.onerror = () => slide.remove();
 
-                slide.appendChild(img);
-                fragment.appendChild(slide);
-            }
-
-            track.replaceChildren(fragment);
+            slide.appendChild(img);
+            fragment.appendChild(slide);
         }
-    });
 
+        track.replaceChildren(fragment);
+    });
 
     // --- 2. SLIDER BUTTONS ---
     document.querySelectorAll('.slider-btn').forEach(btn => {
-        // Oprava pre Lighthouse: kazdy sipkovy button v slideri musi mat label
         if (!btn.getAttribute('aria-label')) {
             const direction = btn.classList.contains('next') ? 'Nasledujúca fotka' : 'Predchádzajúca fotka';
             btn.setAttribute('aria-label', direction);
@@ -47,16 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const id = btn.dataset.target;
             const track = document.querySelector(`.slider-track[data-id="${id}"]`);
-
             if (!track) return;
 
             const viewport = track.parentElement;
             const firstSlide = track.querySelector('.slide');
-            const gap = parseInt(getComputedStyle(track).gap) || 20;
+
+            const gapValue = getComputedStyle(track).gap;
+            const gap = parseInt(gapValue) || 20;
 
             const scrollAmount = firstSlide
                 ? firstSlide.offsetWidth + gap
-                : 320;
+                : viewport.clientWidth * 0.8;
 
             viewport.scrollBy({
                 left: btn.classList.contains('next') ? scrollAmount : -scrollAmount,
@@ -65,8 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
-    // --- 3. SWIPE ---
+    // --- 3. SWIPE (SLIDER) ---
     document.querySelectorAll('.slider-viewport').forEach(viewport => {
         let startX = 0;
         let isDown = false;
@@ -74,76 +70,44 @@ document.addEventListener('DOMContentLoaded', () => {
         viewport.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             isDown = true;
-        }, { passive: true }); // Lepsi performance pri scrollovani
+        }, { passive: true });
 
         viewport.addEventListener('touchend', (e) => {
             if (!isDown) return;
-            const endX = e.changedTouches[0].clientX;
-            const diff = startX - endX;
+
+            const diff = startX - e.changedTouches[0].clientX;
 
             if (Math.abs(diff) > 50) {
+                const scrollAmount = viewport.clientWidth * 0.8;
+
                 viewport.scrollBy({
-                    left: diff > 0 ? 300 : -300,
+                    left: diff > 0 ? scrollAmount : -scrollAmount,
                     behavior: 'smooth'
                 });
             }
+
             isDown = false;
         });
     });
 
+    // --- 4. LIGHTBOX ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = lightbox.querySelector('.close-lightbox');
 
-    // --- 4. LIGHTBOX (OPRAVENÝ PRE LIGHTHOUSE) ---
-	const lightbox = document.createElement('div');
-	lightbox.className = 'lightbox';
-	lightbox.setAttribute('role', 'dialog');
-	lightbox.setAttribute('aria-modal', 'true');
-	lightbox.setAttribute('aria-label', 'Galéria fotografií'); // <--- DOPLNENÉ
-
-	const lightboxImg = document.createElement('img');
-	// Tip: alt nastavuj dynamicky v showImage() podľa altu pôvodnej fotky
-	lightboxImg.alt = "Zväčšený náhľad galérie"; 
-
-	const closeBtn = document.createElement('button');
-	closeBtn.className = 'close-lightbox';
-	closeBtn.setAttribute('aria-label', 'Zatvoriť galériu');
-	closeBtn.innerHTML = '&times;';
-
-	const prevBtn = document.createElement('button');
-	prevBtn.className = 'lightbox-prev';
-	prevBtn.setAttribute('aria-label', 'Predchádzajúci obrázok');
-	prevBtn.innerHTML = '<i class="fas fa-chevron-left" aria-hidden="true"></i>';
-
-	const nextBtn = document.createElement('button');
-	nextBtn.className = 'lightbox-next';
-	nextBtn.setAttribute('aria-label', 'Nasledujúci obrázok');
-	nextBtn.innerHTML = '<i class="fas fa-chevron-right" aria-hidden="true"></i>';
-
-    // OPEN
-    document.addEventListener('click', (e) => {
-        const clickedImg = e.target.closest('.slide img');
-
-        if (clickedImg) {
-            const track = clickedImg.closest('.slider-track');
-            currentImages = Array.from(track.querySelectorAll('img'));
-            currentIndex = currentImages.indexOf(clickedImg);
-
-            showImage();
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Stop scrollu na pozadi
-        }
-
-        if (e.target === lightbox || e.target.closest('.close-lightbox')) {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
+    let currentImages = [];
+    let currentIndex = 0;
 
     function showImage() {
-        if (currentImages.length > 0) {
-            lightboxImg.src = currentImages[currentIndex].src;
-            // Prenesieme ALT tag z miniatury do lightboxu kvoli SEO/Accessibility
-            lightboxImg.alt = currentImages[currentIndex].alt;
-        }
+        if (!currentImages.length) return;
+
+        const img = currentImages[currentIndex];
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+
+        // preload next image (smooth UX)
+        const next = new Image();
+        next.src = currentImages[(currentIndex + 1) % currentImages.length].src;
     }
 
     function nextImage() {
@@ -156,47 +120,70 @@ document.addEventListener('DOMContentLoaded', () => {
         showImage();
     }
 
-    nextBtn.addEventListener('click', nextImage);
-    prevBtn.addEventListener('click', prevImage);
+    function openLightbox(clickedImg) {
+        const track = clickedImg.closest('.slider-track');
+        currentImages = Array.from(track.querySelectorAll('img'));
+        currentIndex = currentImages.indexOf(clickedImg);
 
-    // KEYBOARD NAVIGATION
+        showImage();
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // CLICK HANDLING
+    document.addEventListener('click', (e) => {
+        const clickedImg = e.target.closest('.slide img');
+
+        if (clickedImg) {
+            openLightbox(clickedImg);
+            return;
+        }
+
+        if (e.target === lightbox) closeLightbox();
+        if (e.target.closest('.close-lightbox')) closeLightbox();
+    });
+
+    // KEYBOARD
     document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
 
         if (e.key === 'ArrowRight') nextImage();
         if (e.key === 'ArrowLeft') prevImage();
-        if (e.key === 'Escape') {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-        }
+        if (e.key === 'Escape') closeLightbox();
     });
 
     // SWIPE (LIGHTBOX)
     let lbStartX = 0;
+
     lightbox.addEventListener('touchstart', (e) => {
         lbStartX = e.touches[0].clientX;
     }, { passive: true });
 
     lightbox.addEventListener('touchend', (e) => {
         const diff = lbStartX - e.changedTouches[0].clientX;
+
         if (Math.abs(diff) > 50) {
             diff > 0 ? nextImage() : prevImage();
         }
     });
 
-
-    // --- 5. MENU (HAMBURGER) - OPRAVENÝ ---
+    // --- 5. MENU ---
     const mobileMenu = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
 
     if (mobileMenu && navLinks) {
-        // Pridanie labelu pre Lighthouse, ak chyba v HTML
         mobileMenu.setAttribute('aria-label', 'Hlavné menu');
         const menuIcon = mobileMenu.querySelector('i');
 
         mobileMenu.addEventListener('click', () => {
             const isActive = navLinks.classList.toggle('active');
-            mobileMenu.setAttribute('aria-expanded', isActive); // SEO/Accessibility standard
+            mobileMenu.setAttribute('aria-expanded', isActive);
+
             menuIcon.classList.toggle('fa-bars');
             menuIcon.classList.toggle('fa-times');
         });
@@ -205,29 +192,31 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 mobileMenu.setAttribute('aria-expanded', 'false');
+
                 menuIcon.classList.add('fa-bars');
                 menuIcon.classList.remove('fa-times');
             });
         });
     }
 
-    // Inicializujeme recenzie
+    // --- INIT REVIEWS ---
     initReviewSidebar();
 });
 
-// --- 6. REVIEW SIDEBAR (ASYNC) ---
+
+// --- 6. REVIEW SIDEBAR ---
 async function initReviewSidebar() {
     const container = document.getElementById('review-sidebar');
     if (!container) return;
-    
+
     try {
         const response = await fetch('review.txt');
         if (!response.ok) throw new Error('Nepodarilo sa nacitat recenzie');
-        
+
         const data = await response.text();
         const lines = data.trim().split('\n');
-        
-        container.innerHTML = ''; 
+
+        container.innerHTML = '';
 
         lines.forEach((line, index) => {
             const parts = line.split('|');
@@ -237,13 +226,12 @@ async function initReviewSidebar() {
 
             const card = document.createElement('div');
             card.className = `review-card-sidebar ${index === 0 ? 'active' : ''}`;
-            
+
             let starHtml = '';
-            for(let i=0; i < parseInt(stars); i++) {
+            for (let i = 0; i < parseInt(stars); i++) {
                 starHtml += '<i class="fas fa-star" aria-hidden="true"></i>';
             }
 
-            // OPRAVA: Pridana role="img", aby aria-label na div-e bol povoleny
             card.innerHTML = `
                 <i class="fas fa-quote-left quote-icon" aria-hidden="true"></i>
                 <div class="stars" role="img" aria-label="Hodnotenie ${stars} z 5 hviezdiciek">
@@ -253,6 +241,7 @@ async function initReviewSidebar() {
                 <h4>${name.trim()}</h4>
                 <span class="platform-tag">${platform ? platform.trim() : 'Recenzia'}</span>
             `;
+
             container.appendChild(card);
         });
 
@@ -269,6 +258,6 @@ async function initReviewSidebar() {
 
     } catch (err) {
         console.error(err);
-        container.innerHTML = '<p style="padding:20px">Zatila ziadne recenzie.</p>';
+        container.innerHTML = '<p style="padding:20px">Zatiaľ žiadne recenzie.</p>';
     }
 }

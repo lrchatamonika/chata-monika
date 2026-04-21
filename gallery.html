@@ -8,24 +8,29 @@
     <meta name="description" content="Pozrite si fotografie Chaty Monika. Nahliadnite do útulného interiéru, priestranných izieb a krásneho okolia Veľkej Fatry v Liptovských Revúcach.">
     <link rel="canonical" href="https://lrchatamonika.sk/gallery.html">
 
-    <link rel="icon" type="image/png" href="/img/favicon/favicon-96x96.png" sizes="96x96" alt ="" />
-    <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon.svg" alt="" />
-    <link rel="shortcut icon" href="/img/favicon/favicon.ico" alt="" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png" alt="" />
-    <meta name="apple-mobile-web-app-title" content="CHATA MONIKA" />
-    <link rel="manifest" href="/img/favicon/site.webmanifest" />
+    <!-- FAVICONS -->
+    <link rel="icon" type="image/png" href="/img/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon.svg">
+    <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="CHATA MONIKA">
+    <link rel="manifest" href="/img/favicon/site.webmanifest">
 
+    <!-- OPEN GRAPH -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lrchatamonika.sk/gallery.html">
     <meta property="og:title" content="Fotogaléria - Chata Monika | Liptovské Revúce">
     <meta property="og:description" content="Fotografie interiéru a exteriéru našej chaty vo Veľkej Fatre.">
-    <meta property="og:image" content="https://lrchatamonika.sk/img/favicon/og-image.png" alt="" >
+    <meta property="og:image" content="https://lrchatamonika.sk/img/favicon/og-image.png">
 
+    <!-- STYLES -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
 
+    <!-- TOPBAR -->
     <div class="topbar">
         <div class="topbar-content">
             <span><i class="fas fa-map-marker-alt"></i> Vyšná Revúca 651, Liptovské Revúce, Slovensko</span>
@@ -33,13 +38,14 @@
         </div>
     </div>
 
+    <!-- NAV -->
     <nav>
         <div class="nav-container">
             <div class="logo">
-                <a href="#domov">CHATA<span>MONIKA</span></a>
+                <a href="index.html">CHATA<span>MONIKA</span></a>
             </div>
             
-            <div class="menu-toggle" id="mobile-menu">
+            <div class="menu-toggle" id="mobile-menu" aria-label="Otvoriť menu">
                 <i class="fas fa-bars"></i>
             </div>
             
@@ -53,157 +59,141 @@
         </div>
     </nav>
 
+    <!-- MAIN -->
     <main class="gallery-page">
-        <main class="gallery-page">
-            
-            <h1 class="gallery-title">
-                Naša Galéria <span>Chata Monika</span>
-            </h1>
-            
-            <section class="gallery-wrapper">
-            
-                <!-- EXTERIÉR -->
-                <div class="gallery-category">
-            
-                    <h2>Exteriér <span>Chata Monika</span></h2>
-            
-                    <div class="slider-container">
-            
-                        <button class="slider-btn prev"
-                                data-target="monika"
-                                aria-label="Predchádzajúca fotografia">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-            
-                        <div class="slider-viewport">
-            
-                            <div class="slider-track" data-id="monika"></div>
-            
-                        </div>
-            
-                        <button class="slider-btn next"
-                                data-target="monika"
-                                aria-label="Ďalšia fotografia">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-            
+        
+        <h1 class="gallery-title">
+            Naša Galéria <span>Chata Monika</span>
+        </h1>
+        
+        <section class="gallery-wrapper">
+
+            <!-- EXTERIÉR -->
+            <div class="gallery-category">
+                <h2>Exteriér <span>Chata Monika</span></h2>
+
+                <div class="slider-container">
+                    <button class="slider-btn prev"
+                            data-target="monika"
+                            aria-label="Predchádzajúca fotografia">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <div class="slider-viewport">
+                        <div class="slider-track" data-id="monika"></div>
                     </div>
-            
+
+                    <button class="slider-btn next"
+                            data-target="monika"
+                            aria-label="Ďalšia fotografia">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-            
-            
-                <!-- ČASŤ A -->
-                <div class="gallery-category">
-            
-                    <h2>Interiér – Časť A</h2>
-            
-                    <div class="slider-container">
-            
-                        <button class="slider-btn prev"
-                                data-target="cast-a"
-                                aria-label="Predchádzajúca fotografia">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-            
-                        <div class="slider-viewport">
-            
-                            <div class="slider-track" data-id="cast-a"></div>
-            
-                        </div>
-            
-                        <button class="slider-btn next"
-                                data-target="cast-a"
-                                aria-label="Ďalšia fotografia">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-            
+            </div>
+
+            <!-- ČASŤ A -->
+            <div class="gallery-category">
+                <h2>Interiér – Časť A</h2>
+
+                <div class="slider-container">
+                    <button class="slider-btn prev"
+                            data-target="cast-a"
+                            aria-label="Predchádzajúca fotografia">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <div class="slider-viewport">
+                        <div class="slider-track" data-id="cast-a"></div>
                     </div>
-            
+
+                    <button class="slider-btn next"
+                            data-target="cast-a"
+                            aria-label="Ďalšia fotografia">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-            
-            
-                <!-- ČASŤ B -->
-                <div class="gallery-category">
-            
-                    <h2>Interiér – Časť B</h2>
-            
-                    <div class="slider-container">
-            
-                        <button class="slider-btn prev"
-                                data-target="cast-b"
-                                aria-label="Predchádzajúca fotografia">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-            
-                        <div class="slider-viewport">
-            
-                            <div class="slider-track" data-id="cast-b"></div>
-            
-                        </div>
-            
-                        <button class="slider-btn next"
-                                data-target="cast-b"
-                                aria-label="Ďalšia fotografia">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-            
+            </div>
+
+            <!-- ČASŤ B -->
+            <div class="gallery-category">
+                <h2>Interiér – Časť B</h2>
+
+                <div class="slider-container">
+                    <button class="slider-btn prev"
+                            data-target="cast-b"
+                            aria-label="Predchádzajúca fotografia">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <div class="slider-viewport">
+                        <div class="slider-track" data-id="cast-b"></div>
                     </div>
-            
+
+                    <button class="slider-btn next"
+                            data-target="cast-b"
+                            aria-label="Ďalšia fotografia">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-            
-            
-                <!-- OKOLIE -->
-                <div class="gallery-category">
-            
-                    <h2>Okolie a príroda</h2>
-            
-                    <div class="slider-container">
-            
-                        <button class="slider-btn prev"
-                                data-target="okolie"
-                                aria-label="Predchádzajúca fotografia">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-            
-                        <div class="slider-viewport">
-            
-                            <div class="slider-track" data-id="okolie"></div>
-            
-                        </div>
-            
-                        <button class="slider-btn next"
-                                data-target="okolie"
-                                aria-label="Ďalšia fotografia">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-            
+            </div>
+
+            <!-- OKOLIE -->
+            <div class="gallery-category">
+                <h2>Okolie a príroda</h2>
+
+                <div class="slider-container">
+                    <button class="slider-btn prev"
+                            data-target="okolie"
+                            aria-label="Predchádzajúca fotografia">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <div class="slider-viewport">
+                        <div class="slider-track" data-id="okolie"></div>
                     </div>
-            
+
+                    <button class="slider-btn next"
+                            data-target="okolie"
+                            aria-label="Ďalšia fotografia">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-            
-            </section>
-        </main>
+            </div>
+
+        </section>
     </main>
+
+    <!-- FOOTER -->
     <footer id="footer">
         <div class="footer-grid">
             <p>&copy; 2026 Chata Monika. Všetky práva vyhradené.</p>
+
             <div class="socials">
                 <a href="https://www.instagram.com/vas-profil" 
-				   target="_blank" 
-				   rel="noopener" 
-				   aria-label="Sledujte Chatu Monika na Instagrame">
-				   <i class="fab fa-instagram"></i>
-				</a>
-                <a href="https://www.facebook.com/people/Chata-Monika/61586157156309/" rel="noopener" target="_blank"><i class="fab fa-facebook" aria-label="Sledujte Chatu Monika na Facebooku"></i></a>
+                   target="_blank" 
+                   rel="noopener"
+                   aria-label="Sledujte Chatu Monika na Instagrame">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="https://www.facebook.com/people/Chata-Monika/61586157156309/" 
+                   target="_blank" 
+                   rel="noopener"
+                   aria-label="Sledujte Chatu Monika na Facebooku">
+                    <i class="fab fa-facebook"></i>
+                </a>
             </div>
         </div>
     </footer>
 
-    <div id="lightbox" class="lightbox">
-        <span class="close-lightbox">&times;</span>
-        <img id="lightbox-img" src="" alt="Detail">
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true">
+        <button class="close-lightbox" aria-label="Zavrieť">&times;</button>
+        <img id="lightbox-img" src="" alt="">
     </div>
 
+    <!-- SCRIPT -->
     <script src="script.js"></script>
+
 </body>
 </html>
