@@ -1,4 +1,4 @@
-/* --- MODERNÉ PREMENNÉ --- */
+/* --- MODERNE PREMENNE --- */
 :root {
     --primary: #2d5a27;
     --primary-dark: #1e3d1a;
@@ -10,7 +10,7 @@
     --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* --- ZÁKLADNÝ RESET --- */
+/* --- ZAKLADNY RESET --- */
 * {
     margin: 0;
     padding: 0;
@@ -59,7 +59,7 @@ section[id] { scroll-margin-top: 100px; }
 
 .topbar-content i { margin-right: 5px; color: var(--accent); }
 
-/* --- NAVIGÁCIA --- */
+/* --- NAVIGACIA --- */
 nav {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -110,7 +110,7 @@ nav::after {
 .nav-links a:hover { color: var(--primary); }
 .btn-small { background: var(--primary); color: var(--white) !important; padding: 10px 22px; border-radius: 50px; font-size: 0.85rem; }
 
-/* --- MOBILNÁ RESPONSIVITA HLAVIČKY --- */
+/* --- MOBILNA RESPONSIVITA HLAVICKY --- */
 @media (max-width: 768px) {
     body {
         padding-top: 110px;
@@ -166,7 +166,7 @@ nav::after {
     }
 }
 
-/* --- HERO SEKCIÁ --- */
+/* --- HERO SEKCIA --- */
 header {
     height: 100vh;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('img/hero.webp') center/cover no-repeat;
@@ -182,7 +182,7 @@ header {
 .btn { background: var(--primary); color: var(--white); padding: 18px 45px; text-decoration: none; border-radius: 50px; font-weight: 600; display: inline-block; transition: var(--transition); }
 .btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
 
-/* --- HLAVNÝ LAYOUT --- */
+/* --- HLAVNY LAYOUT --- */
 .main-layout {
     display: grid;
     grid-template-columns: 350px 1fr;
@@ -192,12 +192,12 @@ header {
     margin: auto;
 }
 
-/* --- OBSAHOVÁ ČASŤ --- */
+/* --- OBSAHOVA CAST --- */
 .section-header { margin-bottom: 40px; }
 .section-header h2 { font-size: clamp(2rem, 5vw, 2.8rem); color: var(--primary); margin-bottom: 15px; }
 .bg-light { background-color: var(--light); padding: 80px 50px; border-radius: 40px; }
 
-/* --- CENNÍK --- */
+/* --- CENNIK --- */
 .pricing-table { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
 .price-item { background: var(--white); padding: 40px; border-radius: 25px; text-align: center; box-shadow: var(--shadow); }
 
@@ -271,7 +271,7 @@ footer {
     text-align: center; 
 }
 
-/* --- RESPONSIVITA HLAVNÉHO LAYOUTU --- */
+/* --- RESPONSIVITA HLAVNEHO LAYOUTU --- */
 @media (max-width: 1100px) {
     .main-layout { grid-template-columns: 1fr; }
     .sidebar-sticky { position: static; order: 2; }
@@ -283,7 +283,6 @@ footer {
 }
 
 /* --- GALERIA A SLIDERY --- */
-
 .gallery-category { 
     margin: 60px 0; 
     position: relative; 
@@ -298,14 +297,12 @@ footer {
 }
 
 /* --- SLIDER CONTAINER --- */
-
 .slider-container {
     position: relative;
     width: 100%;
 }
 
 /* --- VIEWPORT (SCROLL AREA) --- */
-
 .slider-viewport {
     width: 100%;
     overflow-x: auto;
@@ -325,7 +322,6 @@ footer {
 }
 
 /* --- TRACK --- */
-
 .slider-track {
     display: flex;
     gap: 20px;
@@ -333,7 +329,6 @@ footer {
 }
 
 /* --- SLIDE --- */
-
 .slide {
     scroll-snap-align: start;
     flex: 0 0 300px;
@@ -354,7 +349,6 @@ footer {
 }
 
 /* --- IMAGE --- */
-
 .slide img {
     width: 100%;
     height: 100%;
@@ -363,7 +357,6 @@ footer {
 }
 
 /* --- BUTTONS --- */
-
 .slider-btn {
     position: absolute;
     top: 50%;
@@ -393,7 +386,6 @@ footer {
 .slider-btn.next { right: 10px; }
 
 /* --- MOBILE SLIDER --- */
-
 @media (max-width: 768px) {
     .slide {
         flex: 0 0 260px;
@@ -409,7 +401,6 @@ footer {
 }
 
 /* --- LIGHTBOX --- */
-
 .lightbox {
     position: fixed;
     inset: 0;
@@ -481,7 +472,7 @@ footer {
     transform: scale(1.1);
 }
 
-/* --- ZJEDNOTENY SIDEBAR --- */
+/* --- ZJEDNOTENY SIDEBAR A GRID STACKING OPRAVA --- */
 .sidebar-sticky { 
     position: sticky; 
     top: 130px; 
@@ -491,20 +482,24 @@ footer {
 }
 
 .sidebar-box {
+    display: grid; /* Umoznuje vrstvenie obsahu bez vytrhnutia z toku */
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     position: relative; 
     width: 100%; 
-    aspect-ratio: 4 / 5; 
-    overflow: hidden; 
     border-radius: 20px; 
     box-shadow: var(--shadow);
     background: #f0f0f0;
+    overflow: hidden;
 }
 
 /* --- SLIDESHOW WRAPPER --- */
-.slideshow-container {
-    position: relative;
+.sidebar-box .slideshow-container {
+    grid-area: 1 / 1;
+    min-height: 300px;
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
 /* --- FOTOSLIDESHOW --- */
@@ -527,24 +522,30 @@ footer {
 .slide-2 { background-image: url('img/slide2.webp'); animation-delay: 8s; }
 .slide-3 { background-image: url('img/slide3.webp'); animation-delay: 16s; }
 
-/* --- RECENZIE --- */
+/* --- RECENZIE (OPRAVENE VRSTVENIE) --- */
 .review-card-sidebar {
-    position: absolute;
-    inset: 0;
-    padding: 30px;
+    grid-area: 1 / 1;
+    position: relative; /* Zrusene absolute pre spravne prisposobovanie vysky */
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
     background: white;
-    transition: opacity 1.5s ease-in-out;
-    z-index: 2;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    z-index: 1;
+    width: 100%;
 }
 
 .review-card-sidebar.active {
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 2;
 }
 
 /* --- STYL TEXTU RECENZII --- */
@@ -584,7 +585,7 @@ footer {
     letter-spacing: 1px; 
 }
 
-/* --- RESPONZIVITA SIDEBARU A RECENZIÍ (OPRAVENÁ ČASŤ) --- */
+/* --- RESPONZIVITA SIDEBARU A RECENZII (TABLET A MOBIL) --- */
 @media (max-width: 992px) {
     .sidebar-sticky {
         position: static;
@@ -596,9 +597,8 @@ footer {
 
     .sidebar-box {
         aspect-ratio: auto;
-        min-height: 320px;
         height: auto;
-        width: 100%;
+        min-height: auto;
     }
 
     .sidebar-box:hover {
@@ -607,7 +607,12 @@ footer {
     }
 
     .review-card-sidebar {
-        padding: 20px;
+        padding: 20px 15px;
+    }
+
+    .review-card-sidebar p {
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
 }
 
@@ -617,23 +622,21 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .sidebar-box {
-        aspect-ratio: auto;
-        min-height: 300px;
-        height: auto;
+    .sidebar-box .slideshow-container {
+        min-height: 250px;
+    }
+
+    .review-card-sidebar {
+        padding: 20px 15px;
     }
 
     .review-card-sidebar p {
         font-size: 0.9rem;
         line-height: 1.4;
     }
-
-    .review-card-sidebar {
-        padding: 15px;
-    }
 }
 
-/* --- ANIMÁCIA --- */
+/* --- ANIMACIA --- */
 @keyframes slideSequence {
     0%   { opacity: 0; }
     5%   { opacity: 1; }
@@ -642,7 +645,7 @@ footer {
     100% { opacity: 0; }
 }
 
-/* --- PARTNERSKA SEKCIÁ (MEGAUBYTOVANIE) --- */
+/* --- PARTNERSKA SEKCIA (MEGAUBYTOVANIE) --- */
 .partner-section { 
     padding: 60px 5%; 
     background-color: var(--white); 
@@ -734,8 +737,7 @@ footer {
     }
 }
 
-/* --- KOMPLETNY DOPLNOK PRE ADDITIONAL.HTML --- */
-
+/* --- DOPLNOK PRE ADDITIONAL.HTML --- */
 main.main-layout.additional-page {
     display: block !important;
     grid-template-columns: 1fr !important; 
